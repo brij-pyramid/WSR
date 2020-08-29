@@ -1,4 +1,4 @@
-ALTER TABLE `projects` DROP COLUMN `project_id`;
+ALTER TABLE `projects` ADD COLUMN `project_id` int(11);
 
 SET FOREIGN_KEY_CHECKS = 0; 
 
@@ -116,5 +116,115 @@ select projects.id, date_details.date_id, '1', '3', '2','3', 'achivements', 'upd
 
 INSERT INTO `projects_status` (`project_id`, `date_id`, `timeline`, `quality`, `customer`, `resources`, `achivements`, `update_comments`)
 select projects.id, date_details.date_id, '1', '2', '2','3', 'achivements', 'updates' from projects join date_details where projects.id = 1 and date_details.date_id = 5 ;
+
+
+TRUNCATE TABLE projects_milestone;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone1',STR_TO_DATE('2020-01-13', '%Y-%m-%d'), STR_TO_DATE('2020-01-14', '%Y-%m-%d'),'comments1' FROM projects_status WHERE id = 1;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone2',STR_TO_DATE('2020-01-14', '%Y-%m-%d'), STR_TO_DATE('2020-01-14', '%Y-%m-%d'),'comments2' FROM projects_status WHERE id = 1;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone3',STR_TO_DATE('2020-01-14', '%Y-%m-%d'), STR_TO_DATE('2020-01-14', '%Y-%m-%d'),'comments3' FROM projects_status WHERE id = 1;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone4',STR_TO_DATE('2020-01-14', '%Y-%m-%d'), STR_TO_DATE('2020-01-14', '%Y-%m-%d'),'comments4' FROM projects_status WHERE id = 1;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone5',STR_TO_DATE('2020-01-14', '%Y-%m-%d'), STR_TO_DATE('2020-01-14', '%Y-%m-%d'),'comments4' FROM projects_status WHERE id = 1;
+
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone1',STR_TO_DATE('2020-01-20', '%Y-%m-%d'), STR_TO_DATE('2020-01-24', '%Y-%m-%d'),'comments1' FROM projects_status WHERE id = 2;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone2',STR_TO_DATE('2020-01-24', '%Y-%m-%d'), STR_TO_DATE('2020-01-27', '%Y-%m-%d'),'comments2' FROM projects_status WHERE id = 2;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone1',STR_TO_DATE('2020-01-27', '%Y-%m-%d'), STR_TO_DATE('2020-01-31', '%Y-%m-%d'),'comments1' FROM projects_status WHERE id = 3;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone1',STR_TO_DATE('2020-02-04', '%Y-%m-%d'), STR_TO_DATE('2020-02-14', '%Y-%m-%d'),'comments1' FROM projects_status WHERE id = 4;
+
+INSERT INTO `projects_milestone`(`project_status_id`, `milestone`, `plan_date`, `actual_date`, `comments`)
+SELECT id, 'milestone2',STR_TO_DATE('2020-02-14', '%Y-%m-%d'), STR_TO_DATE('2020-02-14', '%Y-%m-%d'),'comments2' FROM projects_status WHERE id = 4;
+
+TRUNCATE TABLE projects_activies;
+
+INSERT INTO `projects_activies` (`project_id`, `date_id`, `activity`, `activity_status`)
+select projects.id, date_details.date_id, 'ACTIVITY1', 'STATUS1' from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+INSERT INTO `projects_activies` (`project_id`, `date_id`, `activity`, `activity_status`)
+select projects.id, date_details.date_id, 'ACTIVITY2', 'STATUS2' from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+INSERT INTO `projects_activies` (`project_id`, `date_id`, `activity`, `activity_status`)
+select projects.id, date_details.date_id, 'ACTIVITY3', 'STATUS3' from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+
+TRUNCATE TABLE projects_risk;
+
+INSERT INTO `projects_risk` (`project_id`, `date_id`, `risk_name`, `risk_severiy`,`risk_mitigation`)
+select projects.id, date_details.date_id, 'Quality', 'Major' ,'quality_mitigation' from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+INSERT INTO `projects_risk` (`project_id`, `date_id`, `risk_name`, `risk_severiy`,`risk_mitigation`)
+select projects.id, date_details.date_id, 'Resource', 'Minor', 'Resource mitigation' from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+INSERT INTO `projects_risk` (`project_id`, `date_id`, `risk_name`, `risk_severiy`,`risk_mitigation`)
+select projects.id, date_details.date_id, 'Risk 3', 'on hold', 'Risk mitigation'  from projects join date_details where projects.id = 1 and date_details.date_id = 1 ;
+
+
+TRUNCATE TABLE projects_resources;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 2;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 3;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 4;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 26;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 8;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 29;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 1 and users.id = 35;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 2;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 3;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 4;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 26;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'YES' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 8;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 29;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 35;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 25;
+
+INSERT INTO `pyramid_wsr`.`projects_resources` (`project_id`, `date_id`, `user_id`, `user_billable`)
+select projects.id, date_details.date_id, users.id, 'NO' from projects join date_details join users where projects.id = 1 and date_details.date_id = 2 and users.id = 33;
+
+
 
 SET FOREIGN_KEY_CHECKS = 1;
