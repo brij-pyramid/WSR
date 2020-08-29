@@ -1,129 +1,81 @@
+--This script is modified to execute on SQL server 
+CREATE TABLE users (
+  "pid" int NOT NULL IDENTITY,
+  "user_id" varchar(50) DEFAULT NULL,
+  "user_pw" varchar(50) DEFAULT NULL,
+  "user_name" varchar(50) DEFAULT NULL,
+  "project_pid" int not null,
+	PRIMARY KEY ("pid")
+);
 
-CREATE TABLE clients (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `client` varchar(50) DEFAULT NULL,
-  `client_name` varchar(50) DEFAULT NULL,
-  `client_type` varchar(50) DEFAULT NULL, 
-  
-  `active` tinyint(1) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-  PRIMARY KEY (`pid`)
-) ;
 
 CREATE TABLE projects (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_id` int not null,
-  `client_id` int not null,
-  `project_name` varchar(50) DEFAULT NULL,
-  `project_desc` varchar(150) DEFAULT NULL,
-  
-  `project_start_date` datetime DEFAULT now(),
-  `project_end_date` datetime DEFAULT now(),
-  
-  `active` tinyint(1) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-  PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_id" int not null,
+  "project_name" varchar(50) DEFAULT NULL,
+  "project_desc" varchar(150) DEFAULT NULL,
+  "active" tinyint DEFAULT NULL,
+  PRIMARY KEY ("pid")
 ) ;
 
 CREATE TABLE projects_status (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_pid` int not null,
-  `date_id` int not null, 
-  
-  `timeline`  int not null, 
-  `quality`  int not null, 
-  `customer`  int not null, 
-  `resources` int not null, 
-  `achivements` varchar(100),
-  `update_comments` varchar(500),
-
-  `active` tinyint(1) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-   PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_pid" int not null,
+  "date_id" int not null, 
+  "timeline"  int not null, 
+  "quality"  int not null, 
+  "customer"  int not null, 
+  "resources" int not null, 
+  "achivements" varchar(100),
+  "update_comments" varchar(500),
+   PRIMARY KEY ("pid")
 );
 
 CREATE TABLE projects_milestone (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_status_id` int not null,
-    
-  `milestone` varchar(150),
-  `plan_date` datetime default null,
-  `actual_date` datetime default null,
-  `comments` varchar(150),
-
-  `active` tinyint(1) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-   PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_status_id" int not null,
+  "milestone" varchar(150),
+  "plan_date" datetime default null,
+  "actual_date" datetime default null,
+  "comments" varchar(150),
+   PRIMARY KEY ("pid")
 );
 
 CREATE TABLE projects_resources (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_id` int not null,
-  `date_id` int(11),  
-  `user_id` int(11),
-  `user_billable` varchar(15), 
-  
-  `active` tinyint(1) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-   PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_status_id" int not null,
+  "billable_count" decimal(5,2), 
+  "nonbillable_count" decimal(5,2), 
+   PRIMARY KEY ("pid")
 );
 
 CREATE TABLE projects_activies (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_id` int not null,
-  `date_id` int(11),  
-  
-  `activity` varchar(200),
-  `activity_status` varchar(15), 
-  
-  `active` tinyint(1) DEFAULT NULL, 
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-   PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_status_id" int not null,  
+  "activity" varchar(200),
+  "activity_status" varchar(15), 
+   PRIMARY KEY ("pid")
 );
 
 CREATE TABLE projects_risk (
-  `pid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `project_id` int not null,
-  `date_id` int(11),  
-  
-  `risk_name`  varchar(50),  
-  `risk_severiy` varchar(50),   
-  `risk_mitigation` varchar(150),  
-  
-  `active` tinyint(1) DEFAULT NULL, 
-  `is_deleted` tinyint(1) DEFAULT NULL,
-  `deleted_at` date DEFAULT NULL,
-   PRIMARY KEY (`pid`)
+  "pid" int NOT NULL IDENTITY,
+  "project_status_id" int not null,  
+  "risk_name"  varchar(100),  
+  "risk_severiy" varchar(15),   
+  "risk_mitigation" varchar(100),  
+   PRIMARY KEY ("pid")
 );
 
-
-
-CREATE TABLE `date_details` (
-  `date_id` int(11) NOT NULL AUTO_INCREMENT,
-  `fulldate` date DEFAULT NULL,
-  `dayofmonth` int(11) DEFAULT NULL,
-  `dayofyear` int(11) DEFAULT NULL,
-  `dayofweek` int(11) DEFAULT NULL,
-  `dayname` varchar(10) DEFAULT NULL,
-  `monthnumber` int(11) DEFAULT NULL,
-  `monthname` varchar(10) DEFAULT NULL,
-  `year` int(11) DEFAULT NULL,
-  `quarter` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`date_key`)
+CREATE TABLE "date_details" (
+  "date_id" int NOT NULL IDENTITY,
+  "fulldate" date DEFAULT NULL,
+  "dayofmonth" int DEFAULT NULL,
+  "dayofyear" int DEFAULT NULL,
+  "dayofweek" int DEFAULT NULL,
+  "dayname" varchar(10) DEFAULT NULL,
+  "monthnumber" int DEFAULT NULL,
+  "monthname" varchar(10) DEFAULT NULL,
+  "year" int DEFAULT NULL,
+  "quarter" tinyint DEFAULT NULL,
+  PRIMARY KEY ("date_id")
 );
-
-
-select count(*) , project_id, user_billable from projects_resources 
-group by  project_id, user_billable;
-
-
-
-
-
-
