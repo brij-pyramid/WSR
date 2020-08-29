@@ -1,2 +1,5 @@
 # WSR
-Weekly Status Report for Pyramid
+
+#Pyramid Consulting, Inc 
+
+Weekly Project Status Review Application
